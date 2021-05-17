@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div class="container">
+		<h2 class="center-block">Bienvenue Gestion Bijoux En Ligne</h2>
+		
+		<hr />
+		<div class="row">
+			<div class="col-xs-4 col-md-offset-4">
+			
+				<div class="bg-danger" th:if="${param.error}">Nom
+					d'utilisateur ou le mot de passe est incorrec.</div>
+				
+					
+				<form class="form-signin" th:action="@{/login}" method="post">
+					<h2 class="form-signin-heading">Connexion</h2>
+					<div class="form-group">
+						<span class="input-group-addon"><i
+							class="fa fa-user-circle" aria-hidden="true"></i></span><input
+							type="text" class="form-control" placeholder="Utilisateur"
+							name="username" id="username" required="required"
+							autofocus="autofocus" />
+					</div>
+					<div class="form-group">
+						<span class="input-group-addon"><i class="fa fa-lock"
+							aria-hidden="true"></i></span><input type="password"
+							class="form-control" placeholder="Mot de passe" name="password"
+							id="password" required="required" />
+					</div>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button><br/>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

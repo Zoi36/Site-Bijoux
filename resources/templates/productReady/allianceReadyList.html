@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<legend class="center-block">
+			CARACTERISTIQUES ALLIANCE<span style="font-size: small"></span>
+		</legend>
+		<div class="table-responsive">
+			<table id="list" class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th><input th:id="selectAllAllianceReady" type="checkbox" /></th>
+						<th>Image</th>
+						<th>Titre</th>
+						<th>Prix (EUR)</th>
+						<th>Stock</th>
+						<th>Déscription</th>
+						<th>Mise à jour</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="allianceReady : ${allianceReadyList}">
+						<div th:if="${allianceReady.title != null}">
+
+							<td><input hidden="hidden" name="id"
+								th:value="${allianceReady.id}" /> <input
+								th:id="'selected'+${allianceReady.id}"
+								class="checkboxAllianceReady" type="checkbox" /></td>
+
+							<td class="col-xs-1"><img
+								th:src="@{/image/product/}+${allianceReady.id}+'.png'"
+								class="img-responsive" /></td>
+							<td><span th:text="${allianceReady.title}"></span></td>
+
+							<td th:text="${allianceReady.price}"></td>
+							<td th:text="${allianceReady.stock}"></td>
+							<td th:utext="${allianceReady.description}"></td> <td><a
+							th:href="@{/ready/updateAllianceReady?id=}+${allianceReady.id}">
+						<i
+								class="fa fa-pencil-square" aria-hidden="true"></i></a>
+						</td></div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button th:id="deleteSelectedAllianceReady" class="btn btn-danger ">Supprimer</button>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<script>
+		$(document).ready(
+				function() {
+					$("#list").DataTable(
+							{
+								"lengthMenu" : [ [ 5, 10, 15, 20, -1 ],
+										[ 5, 10, 15, 20, "All" ] ],
+								"ordering" : false,
+								stateSave : true
+							});
+					$("#list").on('page.dt', function() {
+						$('html, body').animate({
+							scrollTop : $('#list').offset().top
+						}, 200);
+					});
+				});
+	</script>
+	
+	
+</body>
+</html>

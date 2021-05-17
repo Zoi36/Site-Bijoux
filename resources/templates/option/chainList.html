@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<legend class="center-block">
+			INFOS DE LA CHAÎNE<span style="font-size: small"></span>
+		</legend>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+					    <th>Réf</th>
+						<th>Type</th>
+						<th>Prix (EUR)</th>
+						<th>Déscription</th>
+						<th>Mise à jour</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="chain : ${chainList}">
+
+                        <td th:text="${chain.id}"></td>
+						<td th:text="${chain.typeChain}"></td>
+						<td th:text="${chain.price}"></td>
+						<td th:utext="${chain.description}"></td>
+						<td><a th:href="@{/option/updateChain?id=}+${chain.id}">
+								<i class="fa fa-pencil-square" aria-hidden="true"></i>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

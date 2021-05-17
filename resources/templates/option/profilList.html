@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<legend class="center-block">
+			INFOS PROFIL DE L'ALLIANCE<span style="font-size: small"></span>
+		</legend>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover table-striped"
+				id="profilList">
+				<thead>
+					<tr>
+						<td>Réf</td>
+						<th>Profil</th>
+						<th>Prix profil (EUR)</th>
+						<th>Largeur (mm)</th>
+						<th>Poids d'or (g)</th>
+						<th>Déscription</th>
+						<th>Mise à jour</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="allianceProfil : ${profilList}">
+
+						<div th:if="${allianceProfil.title == null }">
+							<div th:if="${allianceProfil.gold == null }">
+
+								<td><span th:text="${allianceProfil.id}"></span></td>
+								<td><span th:text="${allianceProfil.profilAlliance}"></span></td>
+								<td th:text="${allianceProfil.price}"></td>
+								<td><span th:text="${allianceProfil.widthAlliance}"></span></td>
+								<td th:text="${allianceProfil.weightMetal}"></td>
+								<td th:utext="${allianceProfil.description}"></td>
+								<td><a
+									th:href="@{/option/updateProfil?id=}+${allianceProfil.id}">
+										<i class="fa fa-pencil-square" aria-hidden="true"></i>
+								</a></td>
+							</div>
+						</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<script>
+		$(document).ready(
+				function() {
+					$("#profilList").DataTable(
+							{
+								"lengthMenu" : [ [ 5, 10, 15, 20, -1 ],
+										[ 5, 10, 15, 20, "All" ] ],
+								"ordering" : false,
+								stateSave : true
+							});
+					$("#profilList").on('page.dt', function() {
+						$('html, body').animate({
+							scrollTop : $('#profilList').offset().top
+						}, 200);
+					});
+				});
+	</script>
+
+</body>
+</html>

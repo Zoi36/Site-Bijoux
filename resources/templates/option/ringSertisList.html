@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<legend class="center-block">
+			INFOS SERTIS DE LA BAGUE<span style="font-size: small"></span>
+		</legend>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover table-striped" id="list">
+				<thead>
+					<tr>
+					    <th>Réf</th>
+						<th>Type sertis</th>
+						<th>Prix (EUR)</th>
+						<th>Déscription</th>
+						<th>Mise à jour</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="ringSertis : ${ringSertisList}">
+					
+					    <td><span th:text="${ringSertis.id}"></span></td>
+						<td><span th:text="${ringSertis.typeStones}"></span></td>
+						<td th:text="${ringSertis.price}"></td>
+						<td th:utext="${ringSertis.description}"></td>
+						<td><a
+							th:href="@{/option/updateRingSertis?id=}+${ringSertis.id}"> <i
+								class="fa fa-pencil-square" aria-hidden="true"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<script>
+		$(document).ready(
+				function() {
+					$("#list").DataTable(
+							{
+								"lengthMenu" : [ [ 5, 10, 15, 20, -1 ],
+										[ 5, 10, 15, 20, "All" ] ],
+								"ordering" : false,
+								stateSave : true
+							});
+					$("#list").on('page.dt', function() {
+						$('html, body').animate({
+							scrollTop : $('#list').offset().top
+						}, 200);
+					});
+				});
+	</script>
+</body>
+</html>

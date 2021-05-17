@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div>
+			<ol class="breadcrumb">
+				<li><a th:href="@{/orders}"><i
+						class="fa fa-long-arrow-left" aria-hidden="true"></i>retourner</a></li>
+			</ol>
+		</div>
+		<div class="row">
+
+			<div class="col-xs-9">
+				<div class="row">
+					<div class="col-xs-6">
+						<h3>Informations techniques</h3>
+						<div th:if="${product.class.simpleName.equals('RingSimple') }">
+							<p>
+								<strong>Bague</strong>
+							</p>
+							<p>
+								<strong>Réf Or: </strong><span th:text="${product.gold.id}"></span>
+							</p>
+							<p>
+								<strong>Couleur de l'or: </strong><span
+									th:text="${product.gold.colorGold}"></span>
+							</p>
+							<p>
+								<strong>Réf Pierre: </strong><span th:text="${product.stone.id}"></span>
+							</p>
+							<p>
+								<strong>Forme de la pierre : </strong><span th:text="${product.stone.formStone}"></span>
+							</p>
+
+							<p>
+								<strong>Sertis bague: </strong><span
+									th:text="${product.ringSertis.id}"></span>
+							</p>
+						</div>
+						<div th:if="${product.class.simpleName.equals('Alliance') }">
+							<p>
+								<strong>Alliance </strong>
+							</p>
+							<p>
+								<strong>Réf Or: </strong><span th:text="${product.gold.id}"></span>
+							</p>
+							<p>
+								<strong>Couleur de l'or: </strong><span
+									th:text="${product.gold.colorGold}"></span>
+							</p>
+
+							<p>
+								<strong>Finition: </strong><span
+									th:text="${product.finish.typeFinish}"></span>
+							</p>
+							<p>
+								<strong>Profil: </strong><span
+									th:text="${product.profilAlliance}"></span>
+							</p>
+							<p>
+								<strong>Largeur: </strong><span
+									th:text="${product.widthAlliance}"> </span><span> mm</span>
+							</p>
+							<p>
+								<strong>Texte Gravure: </strong><span
+									th:text="${product.engraving.textEngraving}"></span>
+							</p>
+							<p>
+								<strong>Police Gravure: </strong><span
+									th:text="${product.engraving.fontEngraving}"></span>
+							</p>
+
+						</div>
+						<div th:if="${product.class.simpleName.equals('Earrings') }">
+							<p>
+								<strong>Boucles d'oreilles </strong>
+							</p>
+							<p>
+								<strong>Réf Or: </strong><span th:text="${product.gold.id}"></span>
+							</p>
+							<p>
+								<strong>Couleur de l'or: </strong><span
+									th:text="${product.gold.colorGold}"></span>
+							</p>
+							<p>
+								<strong>Réf Pierre: </strong><span th:text="${product.stone.id}"></span>
+							</p>
+							<p>
+								<strong>Forme de la pierre : </strong><span th:text="${product.stone.formStone}"></span>
+							</p>
+						</div>
+						<div th:if="${product.class.simpleName.equals('Necklace') }">
+							<p>
+								<strong>Collier </strong>
+							</p>
+							<p>
+								<strong>Réf Or: </strong><span th:text="${product.gold.id}"></span>
+							</p>
+							<p>
+								<strong>Couleur de l'or: </strong><span
+									th:text="${product.gold.colorGold}"></span>
+							</p>
+							<p>
+								<strong>Réf Pierre: </strong><span th:text="${product.stone.id}"></span>
+							</p>
+							<p>
+								<strong>Forme de la pierre : </strong><span th:text="${product.stone.formStone}"></span>
+							</p>
+
+							<p>
+								<strong>Chaine: </strong><span th:text="${product.chain.id}"></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

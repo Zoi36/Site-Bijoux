@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/option/addGold}"
+				method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						AJOUTER INFOS DE L'OR <span style="font-size: small"> </span><br />
+						<h4>Un * indique les champs obligatoires</h4>
+					</legend>
+
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="qualityGold">
+							Quality Or (carat)</label>
+						<div class="col-md-8">
+
+							<input th:value="${gold.qualityGold}" type="number"
+								name="qualityGold" step="0.1" class="form-control"
+								id="qualityGold" min="0" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="pricePerGram">
+							Prix/gr (EYR)</label>
+						<div class="col-md-8">
+
+							<input th:value="${gold.pricePerGram}" type="number"
+								name="pricePerGram" step="0.1" min="0" class="form-control"
+								id="pricePerGram" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">
+							Déscription</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" class="form-control"
+								id="description" th:value="${gold.description}"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Ajouter</button>
+							<a class="btn btn-danger" th:href="@{/}">Annuler</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

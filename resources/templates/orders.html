@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<legend class="center-block">
+			<a th:href="@{/orders}">COMMANDES<span style="font-size: small"></span></a>
+		</legend>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover table-striped"
+				id="List">
+				<thead>
+					<tr>
+						<th>Référence</th>
+						<th>Date</th>
+						<th>Method de la livraison</th>
+						<th>Montant Global (€)</th>
+						<th>Titulaire de la carte</th>
+						<th>Type de la carte</th>
+						<th>Propriétaire de l'Addresse</th>
+						<th>Adresse de livraison</th>
+						<th>Ville</th>
+						<th>Code postale</th>
+						<th>Statut</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th="paymentOrderMethod : ${paymentOrderMethodList}">
+					<tr data-th-each="orderProduct : ${orderProductList}">
+
+						<td><a
+							th:href="@{/orderProductDetail(id=${orderProduct.id})}"><span
+								data-th-text="${orderProduct.id}"> </span></a></td>
+
+						<td class="text-center"><span
+							th:text="${#dates.format(orderProduct.orderDate, 'dd/MM/yyyy HH:mm ')}">
+						</span></td>
+						<td><span th:text="${orderProduct.shippingMethod}"> </span></td>
+
+						<td
+							th:with="total=${orderProduct.orderTotal+orderProduct.orderTotal*0.06}"
+							data-th-text="${#numbers.formatDecimal(total, 0, 2)}"
+							class="emptyrow text-right"></td>
+						<td><span
+							th:text="${orderProduct.paymentOrderMethod.holderName}"> </span></td>
+						<td><span
+							th:text="${orderProduct.paymentOrderMethod.typeCard}"> </span></td>
+						<td><span th:text="${orderProduct.addressOrder.addressName}">
+						</span></td>
+						<td><span
+							th:text="${orderProduct.addressOrder.addressStreet}"> </span></td>
+						<td><span th:text="${orderProduct.addressOrder.addressCity}">
+						</span></td>
+						<td><span
+							th:text="${orderProduct.addressOrder.addressZipcode}"></span></td>
+
+						<td><span th:text="${orderProduct.orderStatus}"></span></td>
+
+						<td><a class="btn btn-info"
+							th:href="@{/updateOrderStatus(id=${orderProduct.id})}"><span>Finalizer</span></a></td>
+					</tr>
+					</tr>
+
+					<div th:if="${displayOrderProductDetail}">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="panel-heading">
+									<h2>
+										Commande détaillé pour achat #<span
+											th:text="${orderProduct.id}"></span>
+									</h2>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-condensed">
+											<thead>
+												<tr>
+
+													<td class="text-center"><strong> Réf.Bijou</strong></td>
+													<td class="text-center"><strong> Description</strong></td>
+													<td class="text-center"><strong> Quantité</strong></td>
+													<td class="text-center"><strong> Taille (mm)</strong></td>
+													<td class="text-center"><strong> Prix (€)</strong></td>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="lineProduct : ${lineProductList}">
+
+													<td class="text-center"
+														data-th-text="${lineProduct.product.id}"></td>
+
+													<div th:if="${lineProduct.product.title != null }">
+														<td class="text-center"
+															data-th-text="${lineProduct.product.title}"></td>
+													</div>
+
+													<div th:if="${lineProduct.product.title == null }">
+
+														<td class="text-center"><a
+															th:href="@{/personnaliseInfo(id=${lineProduct.product.id})}">bijou
+																personnalisable</a></td>
+													</div>
+
+													<td class="text-center" data-th-text="${lineProduct.qty}"></td>
+													<td class="text-center" data-th-text="${lineProduct.size}"></td>
+													<td class="text-center"
+														data-th-text="${lineProduct.product.price}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<div th:replace="common/header :: footer"></div>
+
+	<script>
+		$(document).ready(
+				function() {
+					$("#list").DataTable(
+							{
+								"lengthMenu" : [ [ 5, 10, 15, 20, -1 ],
+										[ 5, 10, 15, 20, "All" ] ],
+								"ordering" : false,
+								stateSave : true
+							});
+					$("#list").on('page.dt', function() {
+						$('html, body').animate({
+							scrollTop : $('#list').offset().top
+						}, 200);
+					});
+				});
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<legend class="center-block">
+			INFOS DE LA PIERRE<span style="font-size: small"></span>
+		</legend>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover table-striped"
+				id="stoneList">
+				<thead>
+					<tr>
+						<th>Réf</th>
+						<th>Type Pierre</th>
+						<th>Halo Pierre</th>
+						<th>Pierres de côté</th>
+						<th>Poids pierre</th>
+						<th>Déscription</th>
+						<th>Prix</th>
+						<th>Mise à jour</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="stone : ${stoneList}">
+
+						<td><span th:text="${stone.id}"></span></td>
+						<td><span th:text="${stone.typeStone}"></span></td>
+						<td th:text="${stone.haloStone}"></td>
+						<td th:text="${stone.nextStones}"></td>
+						<td th:text="${stone.weightStone}"></td>
+						<td th:utext="${stone.description}"></td>
+						<td th:text="${stone.price}"></td>
+
+						<td><a th:href="@{/option/updateStone?id=}+${stone.id}">
+								<i class="fa fa-pencil-square" aria-hidden="true"></i>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<script>
+		$(document).ready(
+				function() {
+					$("#stoneList").DataTable(
+							{
+								"lengthMenu" : [ [ 5, 10, 15, 20, -1 ],
+										[ 5, 10, 15, 20, "All" ] ],
+								"ordering" : false,
+								stateSave : true
+							});
+					$("#stoneList").on('page.dt', function() {
+						$('html, body').animate({
+							scrollTop : $('#stoneList').offset().top
+						}, 200);
+					});
+				});
+	</script>
+</body>
+</html>
